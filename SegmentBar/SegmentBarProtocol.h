@@ -14,6 +14,8 @@
 
 - (void)didSelectedItem:(UIView *)item;
 
+- (void)didDeSelectedItem:(UIView *)item;
+
 - (void)didRemoveItem:(UIView *)item;
 
 - (void)didAddItem:(UIView *)item;

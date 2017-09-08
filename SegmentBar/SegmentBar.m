@@ -12,11 +12,44 @@
 
 @property (readwrite, strong, nonatomic) NSMutableArray *items;
 @property (readwrite, strong, nonatomic) UIView * selectItem;
-@property (strong, nonatomic) UITapGestureRecognizer *tap;
-
+@property (readwrite, strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 @end
 
 @implementation SegmentBar
+@synthesize delegate = _delegate;
+
+
+- (instancetype)init
+{
+    if(self = [super init])
+    {
+        [self initValues];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if(self = [super initWithFrame:frame])
+    {
+        [self initValues];
+    }
+    return self;
+}
+
+- (void)initValues
+{
+    if(!self.items)
+    {
+        self.items = [[NSMutableArray alloc]init];
+    }
+    if(!self.tapGestureRecognizer)
+    {
+        self.tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleSelect:)];
+        [self addGestureRecognizer:self.tapGestureRecognizer];
+    }
+}
+
 
 -(void)didAddItem:(UIView *)item
 {
@@ -34,6 +67,14 @@
     }
 }
 
+- (void)didDeSelectedItem:(UIView *)item
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(segmentBar:didDeSelectedItem:)])
+    {
+        [self.delegate segmentBar:self didDeSelectedItem:item];
+    }
+}
+
 - (BOOL)shouldSelectItem:(UIView *)item
 {
     BOOL should = YES;
@@ -41,6 +82,7 @@
     {
         should = [self.delegate segmentBar:self shouldSelectItem:item];
     }
+    
     return should;
 }
 
@@ -59,9 +101,14 @@
     {
         return;
     }
+    item.userInteractionEnabled = NO;
     [self.items addObject:item];
     [self addSubview:item];
     [self didAddItem:item];
+    if(self.items.count == 1)
+    {
+        [self selectItemByIndex:0];
+    }
 }
 
 - (void)removeItem:(UIView *)item
@@ -78,14 +125,18 @@
         if(self.selectItem && [self.selectItem isEqual:item])
         {
             self.selectItem = nil;
-            self.selectIndex = 0;
+            [self selectItemByIndex:0];
+        }
+        if(self.items.count == 1)
+        {
+            [self selectItemByIndex:0];
         }
     }
 }
 
 - (void)handleSelect:(UIGestureRecognizer *)tap
 {
-    if(tap.state == UIGestureRecognizerStateBegan)
+    if(tap.state == UIGestureRecognizerStateEnded)
     {
         CGPoint location = [tap locationInView:self];
         NSArray *items = [[NSArray alloc]initWithArray:self.items];
@@ -102,12 +153,6 @@
         {
             self.selectIndex = [self.items indexOfObject:selectItem];
         }
-        
-        if(selectItem&&[self shouldSelectItem:selectItem]&&[self.items containsObject:selectItem])
-        {
-            self.selectIndex = [self.items indexOfObject:selectItem];
-            [self didSelectedItem:selectItem];
-        }
     }
 }
 
@@ -121,13 +166,25 @@
     {
         return;
     }
-    UIView *selectItem = [self.items objectAtIndex:selectIndex];
+    [self selectItemByIndex:selectIndex];
+}
+
+- (void)selectItemByIndex:(NSInteger)index
+{
+    UIView *selectItem = [self.items objectAtIndex:index];
     if(selectItem)
     {
         if([self shouldSelectItem:selectItem])
         {
+            
+            if(_selectItem)
+            {
+                UIView *item = _selectItem;
+                [self didDeSelectedItem:item];
+            }
+            
             _selectItem = selectItem;
-            _selectIndex = selectIndex;
+            _selectIndex = index;
             [self didSelectedItem:selectItem];
         }
     }
@@ -138,24 +195,5 @@
     }
 }
 
-
-- (NSMutableArray *)items
-{
-    if(!_items)
-    {
-        _items = [[NSMutableArray alloc]init];
-    }
-    return _items;
-}
-
-- (UITapGestureRecognizer *)tap
-{
-    if(!_tap)
-    {
-        _tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleSelect:)];
-        [self addGestureRecognizer:_tap];
-    }
-    return _tap;
-}
 
 @end

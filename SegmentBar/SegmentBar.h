@@ -12,9 +12,11 @@
 
 
 
-@interface SegmentBar : UIView <SegmentBarProtocol>
+@interface SegmentBar : UIScrollView <SegmentBarProtocol>
 
 @property (weak,nonatomic) id <SegmentBarDelegate> delegate;
+
+@property(nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
 
 @property (readonly, nonatomic) NSMutableArray *items;
 

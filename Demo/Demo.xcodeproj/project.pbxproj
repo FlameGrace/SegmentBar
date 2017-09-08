@@ -15,9 +15,9 @@
 		869150041F613166005CD5EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869150021F613166005CD5EF /* LaunchScreen.storyboard */; };
 		8691500F1F613166005CD5EF /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8691500E1F613166005CD5EF /* DemoTests.m */; };
 		8691501A1F613166005CD5EF /* DemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 869150191F613166005CD5EF /* DemoUITests.m */; };
-		869150451F614631005CD5EF /* EqualSegmentBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8691503E1F614631005CD5EF /* EqualSegmentBar.m */; };
-		869150461F614631005CD5EF /* MoveSegmentBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 869150401F614631005CD5EF /* MoveSegmentBar.m */; };
-		869150471F614631005CD5EF /* SegmentBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 869150421F614631005CD5EF /* SegmentBar.m */; };
+		869150611F6239CA005CD5EF /* EqualSegmentBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8691505A1F6239CA005CD5EF /* EqualSegmentBar.m */; };
+		869150621F6239CA005CD5EF /* MoveSegmentBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8691505C1F6239CA005CD5EF /* MoveSegmentBar.m */; };
+		869150631F6239CA005CD5EF /* SegmentBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8691505E1F6239CA005CD5EF /* SegmentBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,14 +54,14 @@
 		869150151F613166005CD5EF /* DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		869150191F613166005CD5EF /* DemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoUITests.m; sourceTree = "<group>"; };
 		8691501B1F613166005CD5EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8691503D1F614631005CD5EF /* EqualSegmentBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EqualSegmentBar.h; sourceTree = "<group>"; };
-		8691503E1F614631005CD5EF /* EqualSegmentBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EqualSegmentBar.m; sourceTree = "<group>"; };
-		8691503F1F614631005CD5EF /* MoveSegmentBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveSegmentBar.h; sourceTree = "<group>"; };
-		869150401F614631005CD5EF /* MoveSegmentBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveSegmentBar.m; sourceTree = "<group>"; };
-		869150411F614631005CD5EF /* SegmentBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentBar.h; sourceTree = "<group>"; };
-		869150421F614631005CD5EF /* SegmentBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentBar.m; sourceTree = "<group>"; };
-		869150431F614631005CD5EF /* SegmentBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentBarDelegate.h; sourceTree = "<group>"; };
-		869150441F614631005CD5EF /* SegmentBarProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentBarProtocol.h; sourceTree = "<group>"; };
+		869150591F6239CA005CD5EF /* EqualSegmentBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EqualSegmentBar.h; sourceTree = "<group>"; };
+		8691505A1F6239CA005CD5EF /* EqualSegmentBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EqualSegmentBar.m; sourceTree = "<group>"; };
+		8691505B1F6239CA005CD5EF /* MoveSegmentBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveSegmentBar.h; sourceTree = "<group>"; };
+		8691505C1F6239CA005CD5EF /* MoveSegmentBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveSegmentBar.m; sourceTree = "<group>"; };
+		8691505D1F6239CA005CD5EF /* SegmentBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentBar.h; sourceTree = "<group>"; };
+		8691505E1F6239CA005CD5EF /* SegmentBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentBar.m; sourceTree = "<group>"; };
+		8691505F1F6239CA005CD5EF /* SegmentBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentBarDelegate.h; sourceTree = "<group>"; };
+		869150601F6239CA005CD5EF /* SegmentBarProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentBarProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +112,7 @@
 		86914FF31F613165005CD5EF /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				8691503C1F614631005CD5EF /* SegmentBar */,
+				869150581F6239CA005CD5EF /* SegmentBar */,
 				86914FF71F613165005CD5EF /* AppDelegate.h */,
 				86914FF81F613165005CD5EF /* AppDelegate.m */,
 				86914FFA1F613165005CD5EF /* ViewController.h */,
@@ -152,19 +152,20 @@
 			path = DemoUITests;
 			sourceTree = "<group>";
 		};
-		8691503C1F614631005CD5EF /* SegmentBar */ = {
+		869150581F6239CA005CD5EF /* SegmentBar */ = {
 			isa = PBXGroup;
 			children = (
-				8691503D1F614631005CD5EF /* EqualSegmentBar.h */,
-				8691503E1F614631005CD5EF /* EqualSegmentBar.m */,
-				8691503F1F614631005CD5EF /* MoveSegmentBar.h */,
-				869150401F614631005CD5EF /* MoveSegmentBar.m */,
-				869150411F614631005CD5EF /* SegmentBar.h */,
-				869150421F614631005CD5EF /* SegmentBar.m */,
-				869150431F614631005CD5EF /* SegmentBarDelegate.h */,
-				869150441F614631005CD5EF /* SegmentBarProtocol.h */,
+				869150591F6239CA005CD5EF /* EqualSegmentBar.h */,
+				8691505A1F6239CA005CD5EF /* EqualSegmentBar.m */,
+				8691505B1F6239CA005CD5EF /* MoveSegmentBar.h */,
+				8691505C1F6239CA005CD5EF /* MoveSegmentBar.m */,
+				8691505D1F6239CA005CD5EF /* SegmentBar.h */,
+				8691505E1F6239CA005CD5EF /* SegmentBar.m */,
+				8691505F1F6239CA005CD5EF /* SegmentBarDelegate.h */,
+				869150601F6239CA005CD5EF /* SegmentBarProtocol.h */,
 			);
-			path = SegmentBar;
+			name = SegmentBar;
+			path = ../../SegmentBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,12 +304,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				869150461F614631005CD5EF /* MoveSegmentBar.m in Sources */,
-				869150451F614631005CD5EF /* EqualSegmentBar.m in Sources */,
+				869150621F6239CA005CD5EF /* MoveSegmentBar.m in Sources */,
+				869150611F6239CA005CD5EF /* EqualSegmentBar.m in Sources */,
 				86914FFC1F613165005CD5EF /* ViewController.m in Sources */,
 				86914FF91F613165005CD5EF /* AppDelegate.m in Sources */,
 				86914FF61F613165005CD5EF /* main.m in Sources */,
-				869150471F614631005CD5EF /* SegmentBar.m in Sources */,
+				869150631F6239CA005CD5EF /* SegmentBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

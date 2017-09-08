@@ -9,7 +9,6 @@
 #import "EqualSegmentBar.h"
 
 @implementation EqualSegmentBar
-@synthesize items = _items;
 
 - (void)didAddItem:(UIView *)item
 {
@@ -23,15 +22,21 @@
     [super didRemoveItem:item];
 }
 
+-(void)setMargin:(CGFloat)margin
+{
+    _margin = margin;
+    [self updateItemsFrame];
+}
 
 - (void)updateItemsFrame
 {
     CGFloat width= self.frame.size.width;
     CGFloat height= self.frame.size.height;
-    NSInteger count = [_items count];
+    NSInteger count = [self.items count];
     CGFloat itemWidth = (width-(count-1)*_margin)/count;
+    
     for (int i = 0; i< count; i++) {
-        UIView *item = _items[i];
+        UIView *item = self.items[i];
         CGFloat x = i*(itemWidth + _margin);
         CGRect frame = item.frame;
         frame.origin.x = x;
