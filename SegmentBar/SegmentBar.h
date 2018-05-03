@@ -12,7 +12,7 @@
 
 
 
-@interface SegmentBar : UIScrollView <SegmentBarProtocol>
+@interface SegmentBar : UIView <SegmentBarProtocol>
 
 @property (weak,nonatomic) id <SegmentBarDelegate> delegate;
 

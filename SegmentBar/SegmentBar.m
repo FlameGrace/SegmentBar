@@ -75,6 +75,14 @@
     }
 }
 
+- (void)didUpdateUI
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(segmentBarDidUpdateUI:)])
+    {
+        [self.delegate segmentBarDidUpdateUI:self];
+    }
+}
+
 - (BOOL)shouldSelectItem:(UIView *)item
 {
     BOOL should = YES;
@@ -105,6 +113,7 @@
     [self.items addObject:item];
     [self addSubview:item];
     [self didAddItem:item];
+    [self didUpdateUI];
     if(self.items.count == 1)
     {
         [self selectItemByIndex:0];
@@ -122,6 +131,7 @@
         [self.items removeObject:item];
         [item removeFromSuperview];
         [self didRemoveItem:item];
+        [self didUpdateUI];
         if(self.selectItem && [self.selectItem isEqual:item])
         {
             self.selectItem = nil;
@@ -158,10 +168,6 @@
 
 - (void)setSelectIndex:(NSInteger)selectIndex
 {
-    if(selectIndex >= [self.items count] || selectIndex < 0)
-    {
-        return;
-    }
     if(_selectIndex == selectIndex)
     {
         return;
@@ -171,21 +177,26 @@
 
 - (void)selectItemByIndex:(NSInteger)index
 {
+    if(index >= [self.items count] || index < 0)
+    {
+        return;
+    }
     UIView *selectItem = [self.items objectAtIndex:index];
     if(selectItem)
     {
         if([self shouldSelectItem:selectItem])
         {
-            
             if(_selectItem)
             {
                 UIView *item = _selectItem;
                 [self didDeSelectedItem:item];
+                [self didUpdateUI];
             }
             
             _selectItem = selectItem;
             _selectIndex = index;
             [self didSelectedItem:selectItem];
+            [self didUpdateUI];
         }
     }
     else

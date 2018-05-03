@@ -12,4 +12,9 @@
 
 @property (nonatomic, assign) CGFloat margin;
 
+@property(nonatomic,assign) UIControlContentHorizontalAlignment contentHorizontalAlignment;
+@property(nonatomic,assign) UIControlContentVerticalAlignment contentVerticalAlignment;
+
+@property(readonly, nonatomic,assign) CGSize contentSize;
+
 @end

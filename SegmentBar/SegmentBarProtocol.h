@@ -20,6 +20,8 @@
 
 - (void)didAddItem:(UIView *)item;
 
+- (void)didUpdateUI;
+
 
 
 @end

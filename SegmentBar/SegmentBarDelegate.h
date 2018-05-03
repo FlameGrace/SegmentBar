@@ -13,12 +13,12 @@
 
 @protocol SegmentBarDelegate <UIScrollViewDelegate>
 
-@optional
 /**
  *  当SegmentBar被切换时触发此代理方法
  *
  */
 - (void)segmentBar:(SegmentBar *)segmentBar didSelectedItem:(UIView*)item;
+@optional
 
 - (void)segmentBar:(SegmentBar *)segmentBar didDeSelectedItem:(UIView*)item;
 
@@ -31,5 +31,7 @@
  *
  */
 - (BOOL)segmentBar:(SegmentBar *)segmentBar shouldSelectItem:(UIView*)item;
+
+- (BOOL)segmentBarDidUpdateUI:(SegmentBar *)segmentBar;
 
 @end

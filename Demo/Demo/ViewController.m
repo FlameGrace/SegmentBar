@@ -22,8 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.move = [[MoveSegmentBar alloc]initWithFrame:CGRectMake(0, 100, 200, 44)];
+    self.move = [[MoveSegmentBar alloc]initWithFrame:CGRectMake(0, 100, 300, 44)];
     self.move.backgroundColor = [UIColor lightGrayColor];
+    self.move.margin = 80;
     [self.view addSubview:self.move];
     self.move.delegate = self;
     UILabel *l1 = [self label:@"我的"];
@@ -38,34 +39,57 @@
     [self.move addItem:l5];
     UILabel *l6 = [self label:@"ta的"];
     [self.move addItem:l6];
-    self.move.margin = 20;
-//    self.move.scrollEnabled = YES;
-//    self.move.showsHorizontalScrollIndicator = NO;
-//    self.move.contentSize =  CGSizeMake(500, 0);
+    self.move.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.move attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.move attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:100.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.move attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40.0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.move attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:355]];
     
     
     
-    self.equal = [[EqualSegmentBar alloc]initWithFrame:CGRectMake(0, 300, 200, 44)];
+    self.equal = [[EqualSegmentBar alloc]initWithFrame:CGRectMake(10, 200, 355, 80)];
     self.equal.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:self.equal];
     self.equal.delegate = self;
+    self.equal.margin = 40;
+    self.equal.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     UIButton *e1 = [self button:@"我的"];
     [self.equal addItem:e1];
     UIButton *e2 = [self button:@"你的"];
     [self.equal addItem:e2];
-    UIButton *e3 = [self button:@"他的"];
-    [self.equal addItem:e3];
-    self.equal.margin = 40;
+//    UIButton *e3 = [self button:@"他的"];
+//    [self.equal addItem:e3];
+//    UIButton *e4 = [self button:@"d的"];
+//    [self.equal addItem:e4];
+//    UIButton *e5 = [self button:@"dfdf的"];
+//    [self.equal addItem:e5];
     
     
-    
+//        self.equal.translatesAutoresizingMaskIntoConstraints = NO;
+//        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.equal attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+//
+//        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.equal attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:200.0]];
+//        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.equal attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40.0]];
+//
+//        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.equal attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:355]];
 }
 
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.view updateConstraints];
+    [self.equal updateConstraints];
+}
 
 - (void)segmentBar:(SegmentBar *)segmentBar didSelectedItem:(UILabel *)item
 {
     if([item isKindOfClass:[UIButton class]])
     {
+//        self.equal.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        self.equal.margin = 200;
         [(UIButton *)item setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         return;
     }
@@ -84,23 +108,23 @@
     item.font = [UIFont systemFontOfSize:17];
 }
 
-//- (BOOL)segmentBar:(SegmentBar *)segmentBar shouldSelectItem:(UILabel *)item
-//{
-//    BOOL should = YES;
-//    if([segmentBar isEqual:self.equal])
-//    {
-//        if([segmentBar.items indexOfObject:item] == 2)
-//        {
-//            should = NO;
-//        }
-//    }
-//    
-//    return should;
-//}
+- (BOOL)segmentBar:(SegmentBar *)segmentBar shouldSelectItem:(UILabel *)item
+{
+    BOOL should = YES;
+    if([segmentBar isEqual:self.equal])
+    {
+        if([segmentBar.items indexOfObject:item] == 2)
+        {
+            should = NO;
+        }
+    }
+    
+    return should;
+}
 
 - (UILabel *)label:(NSString *)title
 {
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 50, 30)];
+    UILabel *label = [[UILabel alloc]init];
     label.text = title;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor blueColor];
@@ -109,9 +133,10 @@
 
 - (UIButton *)button:(NSString *)title
 {
-    UIButton *label = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 50, 30)];
+    UIButton *label = [[UIButton alloc]init];
     [label setTitle:title forState:UIControlStateNormal];
     [label setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    label.backgroundColor = [UIColor blackColor];
     return label;
 }
 

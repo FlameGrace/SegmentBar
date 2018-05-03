@@ -10,41 +10,33 @@
 
 @implementation MoveSegmentBar
 
-- (void)didAddItem:(UIView *)item
-{
-    [self updateItemsFrame];
-    [super didAddItem:item];
-}
-
-- (void)didRemoveItem:(UIView *)item
-{
-    [self updateItemsFrame];
-    [super didRemoveItem:item];
-}
-
-- (void)didSelectedItem:(UIView *)item
-{
-    [self updateItemsFrame];
-    [super didSelectedItem:item];
-}
-
 -(void)setMargin:(CGFloat)margin
 {
     _margin = margin;
-    [self updateItemsFrame];
+    [self didUpdateUI];
+}
+
+- (void)didUpdateUI
+{
+    @synchronized(self)
+    {
+        [self updateItemsFrame];
+        [super didUpdateUI];
+    }
 }
 
 - (void)updateItemsFrame
 {
+    self.clipsToBounds = YES;
     CGFloat width= self.frame.size.width;
     CGFloat height= self.frame.size.height;
-    
     CGRect selectFrame = self.selectItem.frame;
     if(selectFrame.size.height==0)
     {
         selectFrame.size.height = height;
     }
     self.selectItem.frame = selectFrame;
+    [self.selectItem sizeToFit];
     
     CGPoint selectCenter = self.selectItem.center;
     selectCenter.x =  width/2;
@@ -54,6 +46,7 @@
     NSInteger count = [self.items count];
     for (NSInteger i = 0; i< self.selectIndex; i++) {
         UIView *item = self.items[i];
+        [item sizeToFit];
         CGFloat sumWidth = self.selectItem.frame.size.width/2+_margin+item.frame.size.width/2;
         for (NSInteger j = i+1; j<self.selectIndex; j++) {
             UIView *temp = self.items[j];
@@ -72,6 +65,7 @@
     }
     for (NSInteger i = count-1; i>self.selectIndex; i--) {
         UIView *item = self.items[i];
+        [item sizeToFit];
         CGFloat sumWidth = self.selectItem.frame.size.width/2+_margin+item.frame.size.width/2;
         for (NSInteger j = i-1; j>self.selectIndex; j--) {
             UIView *temp = self.items[j];
