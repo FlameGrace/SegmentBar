@@ -3,7 +3,7 @@
 //  Demo
 //
 //  Created by Flame Grace on 2017/9/7.
-//  Copyright © 2017年 com.flamegrace. All rights reserved.
+//  Copyright © 2017年 flamegrace@hotmail.com. All rights reserved.
 //
 
 #import "SegmentBar.h"
@@ -11,12 +11,15 @@
 @interface SegmentBar()
 
 @property (readwrite, strong, nonatomic) NSMutableArray *items;
-@property (readwrite, strong, nonatomic) UIView * selectItem;
+@property (readwrite, strong, nonatomic) UIView *selectItem;
 @property (readwrite, strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 @end
 
 @implementation SegmentBar
 @synthesize delegate = _delegate;
+@synthesize selectIndex = _selectIndex;
+@synthesize items = _items;
+@synthesize selectItem = _selectItem;
 
 
 - (instancetype)init
@@ -67,11 +70,11 @@
     }
 }
 
-- (void)didDeSelectedItem:(UIView *)item
+- (void)didDeSelectedIndex:(NSInteger)index
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(segmentBar:didDeSelectedItem:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(segmentBar:didDeSelectedIndex:)])
     {
-        [self.delegate segmentBar:self didDeSelectedItem:item];
+        [self.delegate segmentBar:self didDeSelectedIndex:index];
     }
 }
 
@@ -83,22 +86,30 @@
     }
 }
 
-- (BOOL)shouldSelectItem:(UIView *)item
+- (BOOL)shouldSelectIndex:(NSInteger)index
 {
     BOOL should = YES;
-    if(self.delegate && [self.delegate respondsToSelector:@selector(segmentBar:shouldSelectItem:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(segmentBar:shouldSelectIndex:)])
     {
-        should = [self.delegate segmentBar:self shouldSelectItem:item];
+        should = [self.delegate segmentBar:self shouldSelectIndex:index];
     }
     
     return should;
 }
 
-- (void)didSelectedItem:(UIView *)item
+- (void)didSelectedIndex:(NSInteger)index
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(segmentBar:didSelectedItem:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(segmentBar:didSelectedIndex:)])
     {
-        [self.delegate segmentBar:self didSelectedItem:item];
+        [self.delegate segmentBar:self didSelectedIndex:index];
+    }
+}
+
+- (void)selectIndexDidChangedFrom:(NSInteger)oldIndex to:(NSInteger)newIndex
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(userSelectChangedFrom:to:)])
+    {
+        [self.delegate userSelectChangedFrom:oldIndex to:newIndex];
     }
 }
 
@@ -106,6 +117,10 @@
 - (void)addItem:(UIView *)item
 {
     if(!item)
+    {
+        return;
+    }
+    if(item && ![item isKindOfClass:[UIView class]])
     {
         return;
     }
@@ -144,6 +159,20 @@
     }
 }
 
+- (void)addItems:(NSArray *)items
+{
+    for (UIView *item in items) {
+        [self addItem:item];
+    }
+}
+
+- (void)removeItems:(NSArray *)items
+{
+    for (UIView *item in items) {
+        [self removeItem:item];
+    }
+}
+
 - (void)handleSelect:(UIGestureRecognizer *)tap
 {
     if(tap.state == UIGestureRecognizerStateEnded)
@@ -152,7 +181,8 @@
         NSArray *items = [[NSArray alloc]initWithArray:self.items];
         __block UIView *selectItem = nil;
         [items enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if(CGRectContainsPoint(obj.frame,location))
+            CGRect frame = [self convertRect:obj.frame fromView:obj.superview];
+            if(CGRectContainsPoint(frame,location))
             {
                 selectItem = obj;
                 *stop = YES;
@@ -184,20 +214,21 @@
     UIView *selectItem = [self.items objectAtIndex:index];
     if(selectItem)
     {
-        if([self shouldSelectItem:selectItem])
+        NSInteger old = _selectIndex;
+        if([self shouldSelectIndex:index])
         {
             if(_selectItem)
             {
-                UIView *item = _selectItem;
-                [self didDeSelectedItem:item];
+                [self didDeSelectedIndex:_selectIndex];
                 [self didUpdateUI];
             }
             
             _selectItem = selectItem;
             _selectIndex = index;
-            [self didSelectedItem:selectItem];
+            [self didSelectedIndex:index];
             [self didUpdateUI];
         }
+        [self selectIndexDidChangedFrom:old to:index];
     }
     else
     {

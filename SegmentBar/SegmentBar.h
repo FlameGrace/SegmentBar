@@ -3,29 +3,17 @@
 //  Demo
 //
 //  Created by Flame Grace on 2017/9/7.
-//  Copyright © 2017年 com.flamegrace. All rights reserved.
-//
+//  Copyright © 2017年 flamegrace@hotmail.com. All rights reserved.
+// 虚基类，只包含该有的逻辑，不包含UI
 
 #import <UIKit/UIKit.h>
-#import "SegmentBarDelegate.h"
 #import "SegmentBarProtocol.h"
 
 
 
 @interface SegmentBar : UIView <SegmentBarProtocol>
 
-@property (weak,nonatomic) id <SegmentBarDelegate> delegate;
-
 @property(nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
 
-@property (readonly, nonatomic) NSMutableArray *items;
-
-@property (readonly, nonatomic) UIView *selectItem;
-
-@property (nonatomic, assign) NSInteger selectIndex;
-
-- (void)addItem:(UIView*)item;
-
-- (void)removeItem:(UIView*)item;
 
 @end

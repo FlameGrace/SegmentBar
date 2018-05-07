@@ -9,11 +9,13 @@
 #import "ViewController.h"
 #import "EqualSegmentBar.h"
 #import "MoveSegmentBar.h"
+#import "TopTitleSegmentBar.h"
 
 @interface ViewController () <SegmentBarDelegate>
 
 @property (strong, nonatomic) EqualSegmentBar *equal;
 @property (strong, nonatomic) MoveSegmentBar *move;
+@property (strong, nonatomic) TopTitleSegmentBar *top;
 
 @end
 
@@ -54,7 +56,8 @@
     [self.view addSubview:self.equal];
     self.equal.delegate = self;
     self.equal.margin = 40;
-    self.equal.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    self.equal.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.equal.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIButton *e1 = [self button:@"我的"];
     [self.equal addItem:e1];
     UIButton *e2 = [self button:@"你的"];
@@ -74,6 +77,15 @@
 //        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.equal attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40.0]];
 //
 //        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.equal attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:355]];
+    
+    
+    self.top = [[TopTitleSegmentBar alloc]init];
+    self.top.frame = CGRectMake(10, 400, 355, 44);
+    [self.top addTitles:@[@"我的车辆",@"朋友车辆"]];
+    self.top.contentEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0);
+    [self.view addSubview:self.top];
+    self.top.delegate = self;
+    self.top.backgroundColor = [UIColor blackColor];
 }
 
 
@@ -84,12 +96,13 @@
     [self.equal updateConstraints];
 }
 
-- (void)segmentBar:(SegmentBar *)segmentBar didSelectedItem:(UILabel *)item
+- (void)segmentBar:(SegmentBar *)segmentBar didSelectedIndex:(NSInteger)index
 {
+    UILabel *item = segmentBar.items[index];
     if([item isKindOfClass:[UIButton class]])
     {
 //        self.equal.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        self.equal.margin = 200;
+//        self.equal.margin = 200;
         [(UIButton *)item setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         return;
     }
@@ -97,8 +110,9 @@
     item.font = [UIFont systemFontOfSize:22];
 }
 
-- (void)segmentBar:(SegmentBar *)segmentBar didDeSelectedItem:(UILabel *)item
+- (void)segmentBar:(SegmentBar *)segmentBar didDeSelectedIndex:(NSInteger)index
 {
+    UILabel *item = segmentBar.items[index];
     if([item isKindOfClass:[UIButton class]])
     {
         [(UIButton *)item setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
@@ -108,16 +122,16 @@
     item.font = [UIFont systemFontOfSize:17];
 }
 
-- (BOOL)segmentBar:(SegmentBar *)segmentBar shouldSelectItem:(UILabel *)item
+- (BOOL)segmentBar:(SegmentBar *)segmentBar shouldSelectIndex:(NSInteger)index
 {
     BOOL should = YES;
-    if([segmentBar isEqual:self.equal])
-    {
-        if([segmentBar.items indexOfObject:item] == 2)
-        {
-            should = NO;
-        }
-    }
+//    if([segmentBar isEqual:self.equal])
+//    {
+//        if(index == 2)
+//        {
+//            should = NO;
+//        }
+//    }
     
     return should;
 }
@@ -139,6 +153,5 @@
     label.backgroundColor = [UIColor blackColor];
     return label;
 }
-
 
 @end
